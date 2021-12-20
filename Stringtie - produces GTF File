@@ -1,0 +1,24 @@
+#!/bin/bash -l
+# Set the number of nodes
+#SBATCH -N 1
+# Set the number of tasks/cores per node required 
+#SBATCH -n 8
+# Set the walltime of the job to 1 hour (format is hh:mm:ss)
+#SBATCH -t 30:00:00
+
+# E-mail on begin (b), abort (a) and end (e) of job
+#SBATCH --mail-type=ALL
+
+# E-mail address of recipient
+#SBATCH --mail-user=marion.ryan@ucd.ie
+
+# Specifies the jobname
+#SBATCH --job-name=mapping_reads
+
+# Change working directory to current directory
+cd $SLURM_SUBMIT_DIR
+
+
+module load  stringtie/2.1.6
+
+stringtie /scratch/marionr/Raw_Muscle_2021/Hisat/S41_new_sorted.bam -o /scratch/marionr/Raw_Muscle_2021/mapped_aligned/mapped_alignedS41.gtf
