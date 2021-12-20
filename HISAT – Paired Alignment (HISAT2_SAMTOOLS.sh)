@@ -1,0 +1,25 @@
+#!/bin/bash -l
+# Set the number of nodes
+#SBATCH -N 1
+# Set the number of tasks/cores per node required 
+#SBATCH -n 8
+# Set the walltime of the job to 1 hour (format is hh:mm:ss)
+#SBATCH -t 30:00:00
+
+# E-mail on begin (b), abort (a) and end (e) of job
+#SBATCH --mail-type=ALL
+
+# E-mail address of recipient
+#SBATCH --mail-user=marion.ryan@ucd.ie
+
+# Specifies the jobname
+#SBATCH --job-name=mapping_reads
+
+# Change working directory to current directory
+cd $SLURM_SUBMIT_DIR
+
+module load hisat2/2019-10
+module load gcc/7.4.0
+module load samtools/1.10
+
+hisat2 -x /scratch/marionr/Raw_Muscle_2021/Index_DNA/genome -1 /scratch/marionr/Raw_Muscle_2021/Trimmed/Trimmed_S41_L004_R1_001_paired.fastq -2 /scratch/marionr/Raw_Muscle_2021/Trimmed/Trimmed_S41_L004_R2_001_paired.fastq -S /scratch/marionr/Raw_Muscle_2021/Hisat/S41_new.sam
